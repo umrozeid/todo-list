@@ -1,55 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>My Todo List</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://kit.fontawesome.com/7429bca8b0.js" crossorigin="anonymous"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
+
 <body>
-<div class="container">
-    <div class="head">
-        <h2>My Todos</h2>
-        <textarea class="add-task" placeholder="Give text and hit enter to create &#13;&#10; a new todo"></textarea>
-        <div class="radio-field">
-            <input id="all-radio" type="radio" name="filter">
-            <label for="all-radio">Show all</label>
-        </div>
-        <div class="radio-field">
-            <input id="undone-radio" type="radio" name="filter">
-            <label for="undone-radio">Show only undone</label>
-        </div>
-    </div>
-    <div class="tasks-container">
-        <div class="task-box">
-            <p class="task-name">Playing soccer</p>
-            <p class="task-date">31.11.2019</p>
-            <br>
-            <button type="button" class="buttons delete-button">DELETE</button>
-            <button type="button" class="buttons mark-done-button">MARK DONE</button>
-        </div>
-        <div class="task-box">
-            <p class="task-name">Eating hamburger</p>
-            <p class="task-date">30.11.2019</p>
-            <br>
-            <button type="button" class="buttons delete-button">DELETE</button>
-            <div class="done">
-                <img src="check.svg" alt="check">
-                <p>DONE</p>
+    <div class="container">
+        <div class="head">
+            <h2>My Todos</h2>
+            <textarea id="add-task" placeholder="Give text and hit enter to create &#13;&#10; a new todo"></textarea>
+            <div class="radio-field">
+                <input checked="checked" id="all-radio" name="filter" type="radio" onclick="showAllTasks()">
+                <label for="all-radio">Show all</label>
+            </div>
+            <div class="radio-field">
+                <input id="undone-radio" name="filter" type="radio" onclick="showUndoneTasks()">
+                <label for="undone-radio">Show only undone</label>
             </div>
         </div>
-        <div class="task-box">
-            <p class="task-name">Eating hamburger</p>
-            <p class="task-date">30.11.2019</p>
-            <br>
-            <button type="button" class="buttons delete-button">DELETE</button>
-            <div class="done">
-                <img src="check.svg" alt="check">
-                <p>DONE</p>
-            </div>
+        <div id="tasks-container">
         </div>
     </div>
-</div>
+    <script src="code.js"></script>
 </body>
+
 </html>
