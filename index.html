@@ -10,23 +10,50 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="head">
-            <h2>My Todos</h2>
-            <textarea id="add-task" placeholder="Give text and hit enter to create &#13;&#10; a new todo"></textarea>
+<div class="container">
+    <div class="head">
+        <h2>My Todos</h2>
+        <textarea id="add-task" placeholder="Give text and hit enter to create a new todo" rows="4"></textarea>
+
+        <div class="toggle-tasks">
             <div class="radio-field">
-                <input checked="checked" id="all-radio" name="filter" type="radio" onclick="showAllTasks()">
+                <input checked="checked" id="all-radio" name="filter" type="radio">
                 <label for="all-radio">Show all</label>
             </div>
             <div class="radio-field">
-                <input id="undone-radio" name="filter" type="radio" onclick="showUndoneTasks()">
+                <input id="undone-radio" name="filter" type="radio">
                 <label for="undone-radio">Show only undone</label>
             </div>
         </div>
-        <div id="tasks-container">
-        </div>
+
     </div>
-    <script src="code.js"></script>
+    <div id="tasks-container">
+    </div>
+</div>
+
+
+<template class="task-box-template">
+    <div class="task-box">
+
+        <div class="task-text-date">
+            <div class="task-name"></div>
+            <div class="task-date"></div>
+        </div>
+
+        <div class="task-buttons">
+            <button type="button" class="buttons delete-button">DELETE</button>
+            <button type="button" class="buttons mark-done-button invisible">MARK DONE</button>
+            <div class="done invisible">
+                <img src="check.svg" alt="check">
+                <p>DONE</p>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script src="code.js"></script>
+
 </body>
 
 </html>
