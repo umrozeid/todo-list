@@ -68,32 +68,38 @@ class TaskView {
     }
 
     render(task) {
-        let element=$($(".task-box-template").contents()[1]).clone();
-        // let element=$(".task-box-template").contents().clone();
-        element.find(".task-name").text(task.text);
-        element.find(".task-date").text(this.formatDate(task.creationDate));
+
+        let $element = $(".task-box-template").clone().contents();
+
+        // the syntax $(selector, context) allows us to scope our selection to selector within context
+        $(".task-name", $element).text(task.text);
+        $(".task-date", $element).text(this.formatDate(task.creationDate));
 
         if (task.done) {
-            element.find(".done").removeClass("invisible");
+
+            $(".done", $element).removeClass("invisible");
 
         } else {
 
-            element.find(".mark-done-button").on("click",function(e){
+            $(".mark-done-button", $element).on("click", function (e) {
                 this.onMarkDoneClick(task);
             }.bind(this));
-            element.find(".mark-done-button").removeClass("invisible");
+
+            $(".mark-done-button", $element).removeClass("invisible");
         }
 
-        element.find(".delete-button").on("click",function (e) {
+        $(".delete-button", $element).on("click", function (e) {
+
             this.onDeleteClick(task);
+
         }.bind(this));
 
-        return element;
+        return $element;
     }
 
     formatDate(dateAsLong) {
         let date = new Date(dateAsLong);
-        return date.getFullYear() + "-" + (date.getMonth() + 1)+ "-" + date.getDate();
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     }
 }
 
@@ -102,14 +108,14 @@ class TaskListView {
     constructor(onMarkDoneClick, onDeleteClick) {
         this.onMarkDoneClick = onMarkDoneClick;
         this.onDeleteClick = onDeleteClick;
-        this.element=$("#tasks-container");
+        this.$element = $("#tasks-container");
     }
 
     render(tasks) {
-            this.element.html("");//remove existing children
+        this.$element.html("");//remove existing children
 
         for (let i = 0; i < tasks.length; i++) {
-            this.element.append(new TaskView(this.onMarkDoneClick, this.onDeleteClick).render(tasks[i]));
+            this.$element.append(new TaskView(this.onMarkDoneClick, this.onDeleteClick).render(tasks[i]));
         }
 
     }
@@ -170,25 +176,33 @@ class TaskController {
 
 }
 
-let controller = new TaskController();
 
-let textarea=$("#add-task");
+$(document).ready(function () {
 
-textarea.on("keypress", function (e) {
-    if (e.key === "Enter" && textarea.val()) { // prevent adding empty notes
-        e.preventDefault();
-        controller.addTask(textarea.val());
-        // clear text area after addition
-        textarea.val("");
-    }
+    // The DOM is ready and we can access the DOM elements here
+
+    let controller = new TaskController();
+
+    $("#add-task").on("keypress", function (e) {
+
+        // "this" here is textarea
+        let $textarea = $(this);
+
+        if (e.key === "Enter" && $textarea.val()) { // prevent adding empty notes
+            e.preventDefault();
+            controller.addTask($textarea.val());
+            // clear text area after addition
+            $textarea.val("");
+        }
+    });
+
+    $("#all-radio").click(function (e) {
+        controller.setAllFilter();
+    });
+
+    $("#undone-radio").click(function (e) {
+        controller.setUndoneFilter();
+    });
+
+    controller.loadTasks();
 });
-
-$("#all-radio").on("click",function (e) {
-    controller.setAllFilter();
-});
-
-$("#undone-radio").on("click",function (e) {
-    controller.setUndoneFilter();
-});
-
-controller.loadTasks();
