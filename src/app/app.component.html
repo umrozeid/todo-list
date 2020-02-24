@@ -1,0 +1,22 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="offset-lg-1"></div>
+    <div class="col">
+      <h2>My Todos</h2>
+      <app-todo-input></app-todo-input>
+      <div class="d-flex justify-content-between my-3">
+        <div class="radio-field d-flex">
+          <input id="all-radio" name="filter" type="radio" [value]="false" [(ngModel)]="onlyUndone">
+          <label for="all-radio" class="ml-1">Show all</label>
+        </div>
+        <div class="radio-field d-flex">
+          <input id="undone-radio" name="filter" type="radio" [value]="true" [(ngModel)]="onlyUndone">
+          <label for="undone-radio" class="ml-1" >Show only undone</label>
+        </div>
+      </div>
+      <app-todo *ngFor="let task of tasks | filterTasks: onlyUndone" [task]="task"></app-todo>
+    </div>
+    <div class="offset-lg-1"></div>
+  </div>
+</div>
+

@@ -1,0 +1,20 @@
+<div class="task-box d-flex flex-column mb-3">
+
+  <div class="d-flex justify-content-between">
+    <div class="task-name flex-grow-1">{{ task.text }}</div>
+    <div class="task-date ml-1">{{ task.creationDate | date :'yyyy-MM-dd' }}</div>
+  </div>
+
+  <div class="d-flex justify-content-between mt-4 ">
+    <button type="button" class="buttons delete-button" (click)="deleteTask()">DELETE</button>
+    <button type="button" class="buttons mark-done-button"
+            (click)="markAsDone()"
+            *ngIf="!task.done">MARK DONE</button>
+
+    <div class="done d-flex align-items-center" *ngIf="task.done">
+      <img src="assets/img/check.svg" alt="check" >
+      <p>DONE</p>
+    </div>
+  </div>
+
+</div>

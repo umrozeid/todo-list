@@ -1,0 +1,75 @@
+.task-box {
+  background-color: #f5f5f5;
+  padding: 13px 18px 15px 13px;
+}
+
+.task-name {
+  font-family: SF Pro Text, Roboto, serif;
+  font-size: 15px;
+  width: 0;
+  overflow-wrap: break-word;
+}
+
+.task-date {
+  font-family: SF Pro Textf, Roboto, serif;;
+  font-size: 13px;
+  color: #969696;
+}
+
+.buttons {
+  flex-grow: 0;
+  align-self: flex-end;
+  height: 35px;
+  display: inline-block;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 0;
+  background-color: #fff;
+  /*Text Styling*/
+  font-family: Roboto, serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #6200ee;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+  background-position: center;
+  transition: background 0.8s;
+}
+
+.buttons:hover {
+  color: white;
+  background: #6200ee radial-gradient(circle, transparent 1%, rgb(128, 52, 238) 1%) center/15000%;
+}
+
+.buttons:active {
+  background-color: #6200ee;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.buttons:focus {
+  outline: none;
+}
+
+.delete-button {
+  width: 98px;
+}
+
+.mark-done-button {
+  width: 136px;
+}
+
+.done {
+  height: 35px;
+}
+
+.done p {
+  font-family: Roboto, serif;
+  font-size: 14px;
+  color: #227314;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
