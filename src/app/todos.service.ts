@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from "rxjs/index";
 
 export class Task {
   id: string;
   text: string;
   done: boolean;
   creationDate: number;
+
   constructor(id, text, done, creationDate) {
     this.id = id;
     this.text = text;
@@ -19,19 +21,30 @@ export class Task {
 export class TodosService {
   TASK_ID_PREFIX = 'task-';
   storage = localStorage;
-  tasks: Task[] = [];
+
+  tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
+
   constructor() {
-    this.getTasks();
+    this.setTasks();
   }
-  getTasks() {
-    this.tasks.length = 0;
+
+
+  public subscribe(): Observable<Task[]> {
+    return this.tasksSubject.asObservable();
+  }
+
+  private setTasks() {
+
+    const tasks = [];
+
     for (let i = 0; i < this.storage.length; i++) {
       const key = this.storage.key(i);
       if (key.indexOf(this.TASK_ID_PREFIX) > -1) {
-        this.tasks.push(JSON.parse(this.storage.getItem(key)));
+        tasks.push(JSON.parse(this.storage.getItem(key)));
       }
     }
-    this.tasks.sort(function compare(taskA, taskB) {
+
+    tasks.sort(function compare(taskA, taskB) {
       if (taskA.creationDate > taskB.creationDate) {
         return -1;
       }
@@ -40,20 +53,26 @@ export class TodosService {
       }
       return 0;
     });
+
+    this.tasksSubject.next(tasks);
+
   }
+
   addTask(taskText) {
     const date = new Date();
     const taskId = this.TASK_ID_PREFIX + date.getTime();
     const task = new Task(taskId, taskText, false, date.getTime());
     this.storage.setItem(taskId, JSON.stringify(task));
-    this.getTasks();
+    this.setTasks();
   }
+
   updateTask(taskId, task) {
     this.storage.setItem(taskId, JSON.stringify(task));
-    this.getTasks();
+    this.setTasks();
   }
+
   deleteTask(taskId) {
     this.storage.removeItem(taskId);
-    this.getTasks();
+    this.setTasks();
   }
 }

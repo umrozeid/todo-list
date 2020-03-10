@@ -7,11 +7,12 @@ import {Task, TodosService} from './todos.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  tasks: Task[] = [];
+
   onlyUndone = false;
-  constructor(private todosService: TodosService) {
+
+  constructor(public todosService: TodosService) {
   }
   ngOnInit(): void {
-    this.tasks = this.todosService.tasks;
+
   }
 }

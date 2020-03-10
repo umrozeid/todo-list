@@ -14,7 +14,7 @@
           <label for="undone-radio" class="ml-1" >Show only undone</label>
         </div>
       </div>
-      <app-todo *ngFor="let task of tasks | filterTasks: onlyUndone" [task]="task"></app-todo>
+      <app-todo *ngFor="let task of todosService.subscribe() | async | filterTasks: onlyUndone" [task]="task"></app-todo>
     </div>
     <div class="offset-lg-1"></div>
   </div>
